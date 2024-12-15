@@ -27,9 +27,10 @@ public:
 	Cell* GetCell() const;			// A getter for the pCell
 
 	void SetWallet(int wallet);		// A setter for the wallet
-	int GetWallet() const;			// a getter for the wallet
+	int GetWallet() const;			// A getter for the wallet
 
-	int GetTurnCount() const;		// A getter for the turnCount
+	void SetTurnCount(int turnCount);	// A setter for the turnCount
+	int GetTurnCount() const;			// A getter for the turnCount
 
 	///TODO: You can add setters and getters for data members here (if needed)
 

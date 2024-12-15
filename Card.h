@@ -17,6 +17,8 @@ public:
 	void SetCardNumber(int cnum);   // The setter of card number
 	int GetCardNumber();            // The getter of card number
 
+	bool IsValidCardNumber(int cnum); // Checks if card number is valid [1-13]
+
 	void Draw(Output* pOut) const;  // Draws the card number in the cell position of the card
 	                                // It has the same implementation for all Card Types (Non-Virtual)
 

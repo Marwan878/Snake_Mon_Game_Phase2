@@ -1,52 +1,46 @@
-#include "AddLadderAction.h"
+#include "AddSnakeAction.h"
 
 #include "Input.h"
 #include "Output.h"
-#include "Ladder.h"
+#include "Snake.h"
 
-AddLadderAction::AddLadderAction(ApplicationManager *pApp) : Action(pApp)
+AddSnakeAction::AddSnakeAction(ApplicationManager* pApp) : Action(pApp)
 {
 	// Initializes the pManager pointer of Action with the passed pointer
 }
 
-AddLadderAction::~AddLadderAction()
+AddSnakeAction::~AddSnakeAction()
 {
 }
 
-void AddLadderAction::ReadActionParameters() 
-{	
+void AddSnakeAction::ReadActionParameters()
+{
 	// Get a Pointer to the Input / Output Interfaces
 	Grid* pGrid = pManager->GetGrid();
 	Output* pOut = pGrid->GetOutput();
 	Input* pIn = pGrid->GetInput();
 
 	// Read the startPos parameter
-	pOut->PrintMessage("New Ladder: Click on its Start Cell ...");
+	pOut->PrintMessage("New Snake: Click on its Start Cell ...");
 	startPos = pIn->GetCellClicked();
 
 	// Read the endPos parameter
-	pOut->PrintMessage("New Ladder: Click on its End Cell ...");
+	pOut->PrintMessage("New Snake: Click on its End Cell ...");
 	endPos = pIn->GetCellClicked();
 
 	///TODO: Make the needed validations on the read parameters
 
-	// 1- Checking if IsValidCell Clicked
-	// 2- Checking if both cells are in the same column
-	// 3- Checking that the endPos is above the startPos
-	
-	if (!startPos.IsValidCell() || endPos.IsValidCell())
-	{
-		pGrid->PrintErrorMessage("Invalid Cells Clicked!");
-		return;
-	}
-	else if (startPos.HCell() != endPos.HCell())
+	// 1- Checking if both cells are in the same column
+	// 2- Checking that the endPos is below the startPos
+
+	if (startPos.HCell() != endPos.HCell())
 	{
 		pGrid->PrintErrorMessage("End cell and Start cell are not in the same column!");
 		return;
 	}
 	else if (endPos.VCell() > startPos.VCell())
 	{
-		pGrid->PrintErrorMessage("End cell cannot be smaller than Start cell!");
+		pGrid->PrintErrorMessage("End cell cannot be larger than Start cell!");
 		return;
 	}
 	// ============= Overlapping & Other Validations remaining ============= //
@@ -57,19 +51,19 @@ void AddLadderAction::ReadActionParameters()
 
 
 // Execute the action
-void AddLadderAction::Execute() 
+void AddSnakeAction::Execute()
 {
 	// The first line of any Action Execution is to read its parameter first 
 	// and hence initializes its data members
 	ReadActionParameters();
 
-	// Create a Ladder object with the parameters read from the user
-	Ladder * pLadder = new Ladder(startPos, endPos);
+	// Create a Snake object with the parameters read from the user
+	Snake* pSnake = new Snake(startPos, endPos);
 
-	Grid * pGrid = pManager->GetGrid(); // We get a pointer to the Grid from the ApplicationManager
+	Grid* pGrid = pManager->GetGrid(); // We get a pointer to the Grid from the ApplicationManager
 
 	// Add the card object to the GameObject of its Cell:
-	bool added = pGrid->AddObjectToCell(pLadder);
+	bool added = pGrid->AddObjectToCell(pSnake);
 
 	// if the GameObject cannot be added
 	if (!added)
@@ -77,6 +71,6 @@ void AddLadderAction::Execute()
 		// Print an appropriate message
 		pGrid->PrintErrorMessage("Error: Cell already has an object ! Click to continue ...");
 	}
-	// Here, the ladder is created and added to the GameObject of its Cell, so we finished executing the AddLadderAction
+	// Here, the Snake is created and added to the GameObject of its Cell, so we finished executing the AddSnakeAction
 
 }

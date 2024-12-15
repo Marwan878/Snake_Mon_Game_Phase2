@@ -2,19 +2,18 @@
 
 #include "Action.h"
 
-class RollDiceAction : public Action
+class NewGameAction : public Action
 {
-
 	// No parameters for this action
 
 public:
 
-	RollDiceAction(ApplicationManager *pApp);
+	NewGameAction(ApplicationManager* pApp);
 
 	virtual void ReadActionParameters();
 
 	virtual void Execute();
 
-	virtual ~RollDiceAction();
+	virtual ~NewGameAction();
 };
 

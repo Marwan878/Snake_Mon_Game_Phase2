@@ -25,6 +25,8 @@ public:
 	                                                       // (The effect depends on the GameObject type, so virtual)
 	                                                       // For example, applying a ladder is by moving player up, and so on
 
+	virtual bool IsOveralpping(GameObject* newObj) const;
+
 	// The following functions are examples of what should be supported by the GameObject class
 	// They should be overridden by each inherited class
 

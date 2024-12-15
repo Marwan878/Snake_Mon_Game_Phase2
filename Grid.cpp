@@ -48,7 +48,7 @@ bool Grid::AddObjectToCell(GameObject * pNewObject)  // think if any validation 
 	{
 		// Get the previous GameObject of the Cell
 		GameObject * pPrevObject = CellList[pos.VCell()][pos.HCell()]->GetGameObject();
-		if( pPrevObject)  // the cell already contains a game object
+		if(pPrevObject)  // the cell already contains a game object
 			return false; // do NOT add and return false
 
 		// Set the game object of the Cell with the new game object
@@ -79,6 +79,17 @@ void Grid::UpdatePlayerCell(Player * player, const CellPosition & newPosition)
 
 	// Draw the player's circle on the new cell position
 	player->Draw(pOut);
+}
+
+bool Grid::IsOverlapping(GameObject* newObj) const
+{
+	for (int currentRow = 0; currentRow < NumVerticalCells; currentRow++)
+	{
+		for (int currentColumn = 0; currentColumn < NumHorizontalCells; currentColumn++)
+		{
+			// if (newObj->IsOveralpping()) return true;
+		}
+	}
 }
 
 
@@ -116,9 +127,29 @@ bool Grid::GetEndGame() const
 	return endGame;
 }
 
+void Grid::ResetCurrPlayerNumber()
+{
+	currPlayerNumber = 0;
+}
+
 void Grid::AdvanceCurrentPlayer()
 {
 	currPlayerNumber = (currPlayerNumber + 1) % MaxPlayerCount; // this generates value from 0 to MaxPlayerCount - 1
+}
+
+void Grid::ResetPlayersInfo()
+{
+
+	for (int playerNum = 0; playerNum < MaxPlayerCount; playerNum++)
+	{
+		// 1- Restart Player's positions to (0,0)
+		PlayerList[playerNum]->SetCell(CellList[0][0]);
+		// 2- Restart Wallet to 0
+		PlayerList[playerNum]->SetWallet(100);
+		// 3- Reset Station's Ownership to None (classes Card[10-13] must be done for this)
+		// 4- Restart turnCount to 0
+		PlayerList[playerNum]->SetTurnCount(0);
+	}
 }
 
 // ========= Other Getters =========

@@ -16,6 +16,8 @@ public:
 
 	virtual void Apply(Grid* pGrid, Player* pPlayer); // Applys the effect of the ladder by moving player to ladder's end cell
 
+	virtual bool IsOveralpping(GameObject* newObj) const;
+
 	CellPosition GetEndPosition() const; // A getter for the endCellPos data member
 
 	virtual ~Ladder(); // Virtual destructor
