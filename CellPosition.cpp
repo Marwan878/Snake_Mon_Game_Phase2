@@ -38,7 +38,6 @@ bool CellPosition::SetVCell(int v)
 		return true;
 	}
 
-	vCell = -1;
 	return false; // this line sould be changed with your implementation
 }
 
@@ -52,7 +51,6 @@ bool CellPosition::SetHCell(int h)
 		return true;
 	}
 
-	hCell = -1;
 	return false; // this line sould be changed with your implementation
 }
 
@@ -135,9 +133,7 @@ void CellPosition::AddCellNum(int addedNum)
 
 	/// TODO: Implement this function as described in the .h file
 
-	CellPosition position = GetCellPositionFromNum(GetCellNum() + addedNum);
-	this->vCell = position.vCell;
-	this->hCell = position.hCell;
+	*this = GetCellPositionFromNum(GetCellNum() + addedNum);
 
 	// Note: this function updates the data members (vCell and hCell) of the calling object
 
